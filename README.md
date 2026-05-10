@@ -26,9 +26,9 @@ Closed detection tools create an arms race where star farms can reverse-engineer
 
 ---
 
-## Chrome Extension
+## Browser Extensions
 
-### Install
+### Chrome Install
 
 1. Clone this repo:
    ```bash
@@ -39,6 +39,33 @@ Closed detection tools create an arms race where star farms can reverse-engineer
 4. Click **Load unpacked**
 5. Select the `chrome-extension/` folder from the cloned repo
 6. The RealStars icon appears in your toolbar
+
+### Firefox Install
+
+1. Clone this repo:
+   ```bash
+   git clone https://github.com/mercurialsolo/realstars.git
+   ```
+2. Open Firefox and go to `about:debugging#/runtime/this-firefox`
+3. Click **Load Temporary Add-on...**
+4. Select `firefox-extension/manifest.json` from the cloned repo
+5. The RealStars icon appears in your toolbar
+
+### Firefox Build
+
+Validate the Firefox extension:
+
+```bash
+npm run lint:firefox
+```
+
+Package it for distribution:
+
+```bash
+npm run build:firefox
+```
+
+This writes `web-ext-artifacts/realstars-firefox.xpi`.
 
 ### Usage
 
@@ -80,7 +107,7 @@ For heavier use (checking many repos, deeper profile sampling), add a token to g
 - **Refresh** — Check current rate limit and validate token is still active
 - **Delete** — Remove the token and go back to unauthenticated mode
 
-The token is stored in Chrome's local extension storage. It never leaves your browser except to authenticate with GitHub's API.
+The token is stored in the browser's local extension storage. It never leaves your browser except to authenticate with GitHub's API.
 
 ---
 
@@ -390,6 +417,10 @@ realstars/
 │   ├── popup.html            Extension popup UI
 │   ├── popup.js              Token management, manual checks
 │   └── icons/
+├── firefox-extension/
+│   ├── manifest.json         Firefox Manifest V3
+│   ├── background.js         Firefox background script entry
+│   └── modules/              Shared detection modules copied for Firefox packaging
 └── claude-plugin/
     ├── plugin.json
     └── skills/
@@ -416,7 +447,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Key areas:
 - **Known farms list** — contribute confirmed star-farm accounts to `known-farms.json`
 - **New signals** — network graph analysis, commit activity correlation
 - **Better weights** — Bayesian prior tuning from labeled datasets
-- **Browser support** — Firefox, Safari, Edge ports
+- **Browser support** — Safari, Edge ports
 - **Visualization** — star growth charts, network graphs, historical trends
 
 ## Research References
